@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<body>
+    <script>
+        let array = new Array(10)
+        let closedAr = new Array(10)
+
+
+let inputAr = [{key: 2, value: "orange"}, {key: 2, value: "blue"}, {key: 2, value: "purple"}, {key: 2, value: "red"}, {key: 12, value: "black"}, {key: 4, value: "yellow"}, {key: 4, value: "tan"}, {key: 4, value: "beige"}, {key: 4, value: "white"}, {key: 4, value: "grey"}]
+
+// Open Address practice
+for (let i=0; i < inputAr.length; i++) {
+    let obj = inputAr[i]
+    let initialIndex = obj["key"] % inputAr.length
+    let index = initialIndex
+    let found = false
+    if (array[index]) {
+        while (index < array.length && !found) {
+            if (!array[index]) {
+                array[index] = obj
+                found = true
+            }
+            index++
+        }
+        index = 0
+        while (index < initialIndex && !found) {
+            if (!array[index]) {
+                array[index] = obj
+                found = true
+            }
+            index++
+        }
+    } else {
+        array[index] = obj
+    }
+    console.log(array)
+}
+
+
+//Closed Address
+class Node { 
+    constructor(element) 
+    { 
+        this.element = element; 
+        this.next = null
+    } 
+} 
+
+class LinkedList { 
+    constructor() 
+    { 
+        this.head = null; 
+        this.size = 0; 
+    } 
+
+    add(element) {
+        if (this.head) {
+            if (this.head.next) {
+                let target = this.head.next
+                let placed = false
+                while (!placed) {
+                    if (!target.next) {
+                        target.next = element
+                        placed = true
+                    } else {
+                        target = target.next
+                    }
+                }
+            } else {
+                this.head.next = element
+            }
+        } else {
+            this.head = element
+        }
+        this.size++
+    }
+
+    insertAt(element, location) {
+        let index = 0
+        let placed = false
+        let target = this.head
+        while (!placed) {
+            if (location - 1 === index) {
+                let appended = target.next
+                element.next = appended
+                target.next = element
+                placed = true
+                this.size++
+            } else {
+                index++
+                target = target.next
+            }
+        }
+    }
+
+    removeFrom(location) {
+        let index = 0
+        let deleted = false
+        let target = this.head
+        while (!deleted) {
+            console.log(index)
+            console.log(target)
+            if (index === location - 1) {
+                let removed = target.next
+                let retainedNodes = removed.next
+                target.next = retainedNodes
+                deleted = true
+                this.size--
+                return removed
+            } else {
+                index++
+                target = target.next
+            }
+        }
+    }
+
+    removeElement(key) {
+        let removed = false
+        let target = this.head
+        while (!removed) {
+            if (target.key === key) {
+
+            }
+        }
+    }
+  
+    // functions to be implemented 
+    // add(element) !!
+    // insertAt(element, location) !!
+    // removeFrom(location) !!
+    // removeElement(element) 
+  
+    // Helper Methods 
+    // isEmpty 
+    // size_Of_List 
+    // PrintList 
+    } 
+
+    // let head_node = new Node()
+
+    // head_node.element = "4"
+
+    // let ll = new LinkedList()
+
+    // ll.head = head_node
+
+    // added_node = new Node
+    // added_node.element = "10"
+    // ll.add(added_node)
+
+    // new_node = new Node
+    // new_node.element = "15"
+
+    // ll.insertAt(new_node, 1)
+    for (let i = 0; i < inputAr.length; i++) {
+        let desiredIndex = inputAr[i]["key"] % closedAr.length
+        if (closedAr[desiredIndex]) {
+            let new_node = new Node
+            new_node.key = inputAr[i]
+            closedAr[desiredIndex].add(new_node)
+        } else {
+            let new_ll = new LinkedList
+            let new_node = new Node
+            new_node.key = inputAr[i]
+            new_ll.add(new_node)
+            closedAr[desiredIndex] = new_ll
+        }
+    }
+
+
+    debugger
+    </script>
+</body>
