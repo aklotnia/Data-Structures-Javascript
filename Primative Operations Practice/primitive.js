@@ -29,3 +29,11 @@ for(var i = 0; i < n; i++)
 console.log(sum) 
 
 // 4 + 6n + 4 + 6n^2 + 4n + 3n^2 = 9n^2 + 10n + 8
+
+// 1 + 3 x (n + 1) + 3 x n 
+for (var i=0; i<n; i++){
+// 1 + 3 x ()
+    for (var j=0; j<i; j++){
+        //Statement(s) that take(s) constant time
+    }
+}
