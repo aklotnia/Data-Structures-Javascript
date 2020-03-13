@@ -37,6 +37,20 @@ class LinkedList {
         return (!this.head)
     }
 
+    length = () => {
+        if (this.isEmpty()) {
+            return 0
+        } else {
+            let temp = this.head
+            let length = 0
+            while (temp) {
+                temp = temp.nextElement
+                length++
+            }
+            return length
+        }
+    }
+
     printList = () => {
         if (this.isEmpty()) {
           console.log("Empty List");
@@ -126,6 +140,22 @@ class LinkedList {
           return false;
     }
 
+    deleteAtTail = () => {
+        if (this.isEmpty()) {
+            return this
+        } else if (!this.head.nextElement) {
+            this.deleteAtHead()
+            return this
+        } else {
+            let temp = this.head
+            while (temp.nextElement.nextElement) {
+                temp = temp.nextElement
+            }
+            temp.nextElement = null
+            return this
+        }
+    }
+
     search = (data) => {
         let temp = this.head
         while (temp) {
@@ -135,5 +165,95 @@ class LinkedList {
             temp = temp.nextElement
         }
         return false
+    }
+
+    reverse = () => {
+        if (this.isEmpty()) {
+            return this
+        } else {
+            let previousNode = null;
+            let currentNode = this.head; // The current node
+            let nextNode = null; // The next node in the list
+
+            //Reversal
+            while (currentNode != null) {
+                nextNode = currentNode.nextElement;
+                currentNode.nextElement = previousNode;
+                previousNode = currentNode;
+                currentNode = nextNode;
+            }
+
+            //Set the last element as the new head node
+            this.head = previousNode;
+        }
+    }
+
+    detectLoop = () => {    
+        let onestep = this.head
+        let twostep = this.head;
+        while(onestep!=null && twostep!=null && twostep.nextElement!=null){ 
+          onestep = onestep.nextElement // Moves one node at a time
+          twostep = twostep.nextElement.nextElement // Moves two nodes at a time
+          if (onestep == twostep){ // Loop exists
+            return true;
+          }
+        }
+        return false;
+    }
+
+    // linear time complexity, brute force method, two linear loops involved
+    findMid = () => {
+        let length = this.length()
+        let middle = Math.ceil(length / 2);
+        let midNode = this.head;
+        for (let i = 1; i < middle; i++) {
+            midNode = midNode.nextElement;
+        }
+
+        return midNode;
+    }
+
+    // still linear time complexity, but more efficient because both length and midnode calculation are happening in the same loop.
+    findMidTwoPointer = () => {
+        let midNode = null;
+        if (this.isEmpty()) {
+            return null;
+        }
+        let slowerNode = this.head;
+        let fasterNode = this.head;
+        if (slowerNode.nextElement == null) {
+            return slowerNode;
+        }
+        while (slowerNode.nextElement != null && fasterNode.nextElement != null && fasterNode.nextElement.nextElement != null) {
+            slowerNode = slowerNode.nextElement;
+            fasterNode = fasterNode.nextElement.nextElement;
+        }
+        return slowerNode;
+    }
+
+    removeDuplicates = () => {
+        if (this.isEmpty()) {
+            return null;
+          }
+        
+          //If list only has one node, leave it unchanged
+          if (this.head.nextElement == null) {
+            return list;
+          }
+        
+          let outerNode = this.head;
+          while (outerNode != null) {
+            let innerNode = outerNode; // Iterator for the inner loop
+            while (innerNode != null) {
+              if (innerNode.nextElement != null && outerNode.data == innerNode.nextElement.data) { //Duplicate found ahead
+                innerNode.nextElement = innerNode.nextElement.nextElement; // Remove duplicate
+              } else {
+                innerNode = innerNode.nextElement; // Otherwise simply iterate ahead
+              }
+            }
+            outerNode = outerNode.nextElement;
+          }
+        
+          return list;
     }
 }
