@@ -1,1 +1,1 @@
-This is a project tracking my progress on big O notation and data structure/algorithm practice.
+This is a project tracking my progress on big O notation and data structure/algorithm practice. Every algorithm and data structure that I practice will be covered in this project.
