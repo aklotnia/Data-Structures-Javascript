@@ -18,4 +18,25 @@ class Queue {
     size() {
         return this.items.length;
     }
+
+    enqueue(element) {
+        this.items.push(element);
+    }
+
+    dequeue() {
+        if (this.isEmpty()) {
+            return null;
+        } else {
+            return this.items.shift();
+        }
+    }
+}
+
+findBin(num) {
+    let q = new Queue
+    for (let i = 1; i <= num; i++) {
+        let binary = i.toString(2)
+        q.enqueue(binary)
+    }
+    return q.items
 }

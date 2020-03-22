@@ -46,3 +46,42 @@ class Stack {
         }
     }
 }
+
+
+// Stack acting as a queue
+
+"use strict";
+const Stack = require('./Stack.js');
+//Create Stack => stack = Stack(); 
+//Push Function => stack.push() 
+//Pop Function => stack.pop()       
+//Top Function => stack.getTop()  
+//Helper Functions => stack.isEmpty() //returns boolean
+class newQueue {
+    constructor() {
+        this.stack = new Stack()
+    }
+    enqueue(value) {
+        this.stack.push(value)
+        this.stack.top = value
+        return true
+    }
+
+    dequeue() {
+        if (this.stack.isEmpty()) {
+            return null
+        } else {
+            let newStack = new Stack()
+            while (!this.stack.isEmpty()) {
+                let poppeditem = this.stack.pop()
+                newStack.push(poppeditem)
+            }
+            let desiredItem = newStack.pop()
+            while (!newStack.isEmpty()) {
+                let newpop = newStack.pop()
+                this.stack.push(newpop)
+            }
+            return desiredItem
+        }
+    }
+}
